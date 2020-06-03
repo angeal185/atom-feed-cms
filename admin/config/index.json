@@ -1,0 +1,13 @@
+{
+  "server": {
+    "port": "8080",
+    "css": "./app/css/app.min.css",
+    "mjs": "./app/modules/app.mjs",
+    "base_tpl": "<!DOCTYPE html><html><head><link rel='stylesheet' href='CSS'><script type='module' src='MJS'></script></head><body></body></html>",
+    "cert": "./admin/cert/localhost.cert",
+    "key": "./admin/cert/localhost.key",
+    "api":{
+      "paths": ["create", "delete"]
+    }
+  }
+}
