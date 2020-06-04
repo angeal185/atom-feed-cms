@@ -269,18 +269,44 @@ const rout = {
       )
 
       for (let k in schema[arr2[j]]) {
-        base.append(h('div.column.col-6.col-md-12',
-          h('div.form-group',
-            h('label.form-label', k),
-            h('input.form-input', {
-              value: schema[arr2[j]][k],
-              onkeyup: function(evt){
-                schema[arr2[j]][k] = evt.target.value;
-                ls.set('schema_entry', schema);
-              }
-            })
-          )
-        ))
+        if(k === 'data'){
+          let ta = h('textarea.form-input', {
+            value: schema[arr2[j]][k],
+            rows: 6,
+            onkeyup: function(evt){
+              schema[arr2[j]][k] = evt.target.value;
+              ls.set('schema_entry', schema);
+            }
+          });
+          base.append(h('div.column.col-6.col-md-12',
+            h('div.form-group',
+              h('label.form-label.w-100', k,
+                h('span.float-right.cp', {
+                  onclick: function(){
+                    ta.value = utils.escapeHTML(ta.value);
+                    schema[arr2[j]][k] = ta.value;
+                    ls.set('schema_entry', schema);
+                  }
+                }, 'escape'
+              )),
+              ta
+            )
+          ))
+        } else {
+          base.append(h('div.column.col-6.col-md-12',
+            h('div.form-group',
+              h('label.form-label', k),
+              h('input.form-input', {
+                value: schema[arr2[j]][k],
+                onkeyup: function(evt){
+                  schema[arr2[j]][k] = evt.target.value;
+                  ls.set('schema_entry', schema);
+                }
+              })
+            )
+          ))
+        }
+
       }
     }
 
@@ -536,7 +562,8 @@ const rout = {
               h('button.btn.btn-block', {
                 onclick: function(){
                   let arr = ls.get('schema_active').entries,
-                  newArr = [];
+                  newArr = [],
+                  exists = false;
 
                   for (let i = 0; i < arr.length; i++) {
                     if(arr[i].id !== entry_id.value){
