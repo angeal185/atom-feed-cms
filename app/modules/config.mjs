@@ -1,8 +1,6 @@
 import { utils } from './utils.mjs';
 
-const base_path = location.href.split('/')[1];
 const config = {
-  app_path: base_path,
   nav_items: ['dashboard','feed', 'entry', 'edit', 'settings'],
   nav_base: 0,
   max_entries: 50,

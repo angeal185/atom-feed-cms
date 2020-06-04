@@ -2,7 +2,6 @@ import { h } from './h.mjs';
 import { utils } from './utils.mjs';
 import { ls,ss } from "./storage.mjs";
 import { config } from './config.mjs';
-import { cnsl } from './cnsl.mjs';
 import { rout } from './rout.mjs';
 
 const tpl = {

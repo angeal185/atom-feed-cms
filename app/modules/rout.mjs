@@ -6,6 +6,7 @@ import { ls,ss } from "./storage.mjs";
 
 const rout = {
   dashboard: function(dest){
+
     let base = h('div.columns',
       h('div.column.col-12',
         h('h4.mt-4', 'Atom feeds')
@@ -642,7 +643,7 @@ const rout = {
 
   },
   settings: function(dest){
-    dest.append('settings')
+    //dest.append('settings')
   }
 }
 

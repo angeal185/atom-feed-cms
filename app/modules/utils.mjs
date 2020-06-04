@@ -2,7 +2,6 @@ import { h } from './h.mjs';
 import { tpl } from './tpl.mjs';
 import { config } from './config.mjs';
 import { ls,ss } from "./storage.mjs";
-import { cnsl } from './cnsl.mjs';
 
 const utils = {
   uuid: function() {
@@ -38,7 +37,7 @@ const utils = {
     }).load().then(function(res) {
       doc.fonts.add(res);
     }).catch(function(err) {
-      cnsl(['[task:fonts] ', obj.name +' failed to load.'], ['red','cyan']);
+      ce(err)
     });
   },
   fetchJSON: function(url, cb){
