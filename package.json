@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/angeal185/atom-feed-cms.git"
   },
-  "keywords": [],
+  "keywords": ["atomm-feed","atom-syndication","cms","nodejs","atom","atom-generator"],
   "author": "ben eaves",
   "license": "MIT",
   "bugs": {
