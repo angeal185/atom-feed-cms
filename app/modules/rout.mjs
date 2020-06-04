@@ -452,18 +452,43 @@ const rout = {
         )
 
         for (let k in schema[arr2[j]]) {
-          base.append(h('div.column.col-6.col-md-12',
-            h('div.form-group',
-              h('label.form-label', k),
-              h('input.form-input', {
-                value: schema[arr2[j]][k],
-                onkeyup: function(evt){
-                  schema[arr2[j]][k] = evt.target.value;
-                  ls.set('schema_edit', schema);
-                }
-              })
-            )
-          ))
+          if(k === 'data'){
+            let ta = h('textarea.form-input', {
+              value: schema[arr2[j]][k],
+              rows: 6,
+              onkeyup: function(evt){
+                schema[arr2[j]][k] = evt.target.value;
+                ls.set('schema_edit', schema);
+              }
+            });
+            base.append(h('div.column.col-6.col-md-12',
+              h('div.form-group',
+                h('label.form-label.w-100', k,
+                  h('span.float-right.cp', {
+                    onclick: function(){
+                      ta.value = utils.escapeHTML(ta.value);
+                      schema[arr2[j]][k] = ta.value;
+                      ls.set('schema_edit', schema);
+                    }
+                  }, 'escape'
+                )),
+                ta
+              )
+            ))
+          } else {
+            base.append(h('div.column.col-6.col-md-12',
+              h('div.form-group',
+                h('label.form-label', k),
+                h('input.form-input', {
+                  value: schema[arr2[j]][k],
+                  onkeyup: function(evt){
+                    schema[arr2[j]][k] = evt.target.value;
+                    ls.set('schema_edit', schema);
+                  }
+                })
+              )
+            ))
+          }
         }
       }
 
@@ -561,23 +586,20 @@ const rout = {
             h('div.column.col-6',
               h('button.btn.btn-block', {
                 onclick: function(){
-                  let arr = ls.get('schema_active').entries,
-                  newArr = [],
-                  exists = false;
+                  let arr = ls.get('schema_active'),
+                  newArr = [];
 
-                  for (let i = 0; i < arr.length; i++) {
-                    if(arr[i].id !== entry_id.value){
-                      newArr.push(arr[i]);
-                      exists = true;
+                  for (let i = 0; i < arr.entries.length; i++) {
+                    if(arr.entries[i].id !== entry_id.value){
+                      newArr.push(arr.entries[i]);
                     }
                   }
 
-                  let final = ls.get('schema_active');
-                  final.entries = newArr;
+                  arr.entries = newArr;
 
-                  ls.set('schema_active', final);
+                  ls.set('schema_active', arr);
 
-                  let xml_final = utils.atom_base(final);
+                  let xml_final = utils.atom_base(arr);
 
                   fetch('/api/create', {
                     method: 'POST',
@@ -585,7 +607,7 @@ const rout = {
                       'Content-Type': 'application/json',
                       'Accept-Encoding': 'gzip'
                     },
-                    body: js({xml: xml_final, schema: final})
+                    body: js({xml: xml_final, schema: arr})
                   })
                   .then(function(res){
                     if (res.status >= 200 && res.status < 300) {
