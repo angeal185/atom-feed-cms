@@ -75,9 +75,6 @@ const tpl = {
     sb_main = h('div.off-canvas',
       h('div.off-canvas-sidebar',
         sb_content,
-        h('div.off-canvas-content',
-          h('p', 'test')
-        )
       ),
       mask
     ),
