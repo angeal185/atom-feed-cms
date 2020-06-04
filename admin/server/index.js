@@ -29,7 +29,7 @@ process.on('SIGINT', function (){
   cl()
   cc(['exit', 'Server https:\/\/localhost:'+ config.server.port + ' ended'],95);
   process.exit(2);
-  process.exit();
+  process.exit(1);
 })
 
 server.on('request', function (req, res) {
