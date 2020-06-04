@@ -157,7 +157,7 @@ const rout = {
               if (res.status >= 200 && res.status < 300) {
                 res.json().then(function(data) {
                   cl(data)
-                  utils.toast('success', data.status)
+                  utils.toast('success', 'feed created')
                 });
               } else {
                 return Promise.reject(new Error(res.statusText))
@@ -351,7 +351,7 @@ const rout = {
               if (res.status >= 200 && res.status < 300) {
                 res.json().then(function(data) {
                   cl(data)
-                  utils.toast('success', data.status)
+                  utils.toast('success', 'entry created')
                 });
               } else {
                 return Promise.reject(new Error(res.statusText))
@@ -589,6 +589,10 @@ const rout = {
                   let arr = ls.get('schema_active'),
                   newArr = [];
 
+                  if(arr === null){
+                    return utils.toast('danger', 'no schema active')
+                  }
+
                   for (let i = 0; i < arr.entries.length; i++) {
                     if(arr.entries[i].id !== entry_id.value){
                       newArr.push(arr.entries[i]);
@@ -612,7 +616,6 @@ const rout = {
                   .then(function(res){
                     if (res.status >= 200 && res.status < 300) {
                       res.json().then(function(data) {
-                        cl(data)
                         utils.toast('success', 'entry deleted')
                       });
                     } else {
@@ -620,6 +623,7 @@ const rout = {
                     }
                   })
                   .catch(function(err){
+                    utils.toast('danger', 'entry not deleted')
                     ce(err)
                   })
 

@@ -122,7 +122,7 @@ const tpl = {
     }
 
     doc.body.append(
-      h('app-sandbox',
+      h('app-content',
         app_main,
         tpl.app_sub()
       )

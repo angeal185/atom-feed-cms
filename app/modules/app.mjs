@@ -15,7 +15,7 @@ window.onload = function(){
   doc = document;
   utils.pre(doc, win, function(err){
     if(err){return ce(err)}
-    tpl.base(win, doc)
+    tpl.base(win, doc);
   })
 
   win.onload = null;
