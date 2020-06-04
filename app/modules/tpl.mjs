@@ -11,7 +11,7 @@ const tpl = {
     let sb_main = tpl.sb_main(),
     nav_right = h('div.navbar-section.hide-md')
 
-    let arr = ['dashboard', 'feed', 'entry', 'edit', 'settings'];
+    let arr = ['dashboard', 'feed', 'entry', 'edit'];
 
     for (let i = 0; i < arr.length; i++) {
       nav_right.append(tpl.nav_link(arr[i]))
@@ -35,22 +35,12 @@ const tpl = {
     )
   },
   nav_link: function(i){
-    return h('div.nav-lnk.ml-4', {
+    return h('div.nav-lnk.ml-4.sh-95', {
         title: i,
         onclick: function(evt){
           location.hash = '/'+ i.replace(/ /g, '_')
         }
       },i)
-  },
-  rss_link: function(){
-    return h('div.nav-lnk.ml-4.icon-rss', {
-        title: 'atom feed',
-        target: '_blank',
-        onclick: function(evt){
-          window.open(location.origin + '/feed/atom')
-        }
-      }
-    )
   },
   sb_link: function(i, sb, mask){
     return h('div.sb-lnk', {
