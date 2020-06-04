@@ -68,6 +68,8 @@ server.on('request', function (req, res) {
         ctype = 'application/json';
       } else if(['.png', '.jpg', '.ico'].indexOf(ext) !== -1){
         ctype = 'image/'+ ext.slice(1);
+      } else if(ext === '.xml'){
+        ctype = 'text/xml'
       }
 
       fs.readFile(filePath, function(err, content) {

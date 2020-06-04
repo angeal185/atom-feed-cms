@@ -184,7 +184,7 @@ const utils = {
 
     let base = '<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom">'
 
-    let arr = ['title', 'subtitle', 'icon', 'logo', 'link', 'updated', 'id', 'generator', 'rights']
+    let arr = ['title', 'subtitle', 'icon', 'logo', 'updated', 'id', 'generator', 'rights']
 
     for (let i = 0; i < arr.length; i++) {
       if(obj[arr[i]] && obj[arr[i]] !== ''){
@@ -193,9 +193,9 @@ const utils = {
     }
 
     // build link
-    if(obj.link && obj.link.href && obj.link.href !== ''){
+    if(obj.link.href !== ''){
       let lnk = '<link ';
-      if(obj.link.rel && obj.link.rel !== ''){
+      if(obj.link.rel !== ''){
         lnk += 'rel="'+ obj.link.rel +'" ';
       }
 
@@ -203,50 +203,54 @@ const utils = {
         lnk += 'title="'+ obj.link.title +'" ';
       }
 
-      if(obj.link.hreflang && obj.link.hreflang !== ''){
+      if(obj.link.hreflang !== ''){
         lnk += 'hreflang="'+ obj.link.hreflang +'" ';
       }
 
-      if(obj.link.type && obj.link.type !== ''){
+      if(obj.link.type !== ''){
         lnk += 'type="'+ obj.link.type +'" ';
       }
 
-      lnk += 'href="'+ obj.link.href +'" />"';
+      lnk += 'href="'+ obj.link.href +'" />';
 
       base += lnk;
       lnk = null;
     }
 
     // build category
-    if(obj.category && obj.category.term && obj.category.term !== ''){
+    if(obj.category.term !== ''){
       let cat = '<category ';
 
-      if(obj.category.label && obj.category.label !== ''){
+      if(obj.category.label !== ''){
         cat += 'title="'+ obj.category.label +'" ';
       }
 
-      if(obj.category.scheme && obj.category.scheme !== ''){
+      if(obj.category.scheme !== ''){
         cat += 'scheme="'+ obj.category.scheme +'" ';
       }
 
-      cat += 'term="'+ obj.category.term +'" />"';
+      cat += 'term="'+ obj.category.term +'" />';
 
       base += cat;
       cat = null;
     }
 
-    if(obj.author && Object.keys(obj.author).length > 0){
+    if(obj.author.name !== '' || obj.author.email !== '' || obj.author.uri !== ''){
       base += '<author>'
       for (let i in obj.author) {
-        base += '<'+ i +'>'+ obj.author[i] +'</'+ i +'>'
+        if(obj.author[i] !== ''){
+          base += '<'+ i +'>'+ obj.author[i] +'</'+ i +'>'
+        }
       }
       base += '</author>'
     }
 
-    if(obj.contributor && obj.contributor.length > 0){
+    if(obj.contributor.length > 0 && obj.contributor[0] !== ''){
       base += '<contributor>'
       for (let i = 0; i < obj.contributor.length; i++) {
-        base += '<name>'+ obj.contributor[i] +'</name>'
+        if(obj.contributor[i] !== ''){
+          base += '<name>'+ obj.contributor[i] +'</name>'
+        }
       }
       base += '</contributor>'
     }
@@ -257,7 +261,7 @@ const utils = {
 
     base += '</feed>'
 
-    cl(base)
+    return base
 
   },
   atom_entry: function(obj){
@@ -271,28 +275,28 @@ const utils = {
       }
     }
 
-    if(obj.author && Object.keys(obj.author).length > 0){
+    if(obj.author.name !== '' || obj.author.email !== '' || obj.author.uri !== ''){
       entry += '<author>'
       for (let i in obj.author) {
         if(obj.author[i] !== ''){
-          entry += '<'+ i +'>'+ obj.author[i] +'</'+ i +'>';
+          entry += '<'+ i +'>'+ obj.author[i] +'</'+ i +'>'
         }
       }
       entry += '</author>'
     }
 
     // build content
-    if(obj.content && obj.content.term && obj.content.term !== ''){
+    if(obj.content.type !== '' || obj.content.data !== '' || obj.content.src !== ''){
       let data = '<content';
 
-      if(obj.content.type && obj.content.type !== ''){
+      if(obj.content.type !== ''){
         data += ' type="'+ obj.content.type +'"';
       }
 
-      if(obj.content.src && obj.content.src !== ''){
+      if(obj.content.src !== ''){
         data += ' src="'+ obj.content.src +'" />';
       } else {
-        data += '/>'+ obj.content.data +'</content>';
+        data += '>'+ obj.content.data +'</content>';
       }
 
       entry += data;
@@ -300,58 +304,60 @@ const utils = {
     }
 
     // build link
-    if(obj.link && obj.link.href && obj.link.href !== ''){
+    if(obj.link.href !== ''){
       let lnk = '<link ';
-      if(obj.link.rel && obj.link.rel !== ''){
+      if(obj.link.rel !== ''){
         lnk += 'rel="'+ obj.link.rel +'" ';
       }
 
-      if(obj.link.title && obj.link.title !== ''){
+      if(obj.link.title !== ''){
         lnk += 'title="'+ obj.link.title +'" ';
       }
 
-      if(obj.link.hreflang && obj.link.hreflang !== ''){
+      if(obj.link.hreflang !== ''){
         lnk += 'hreflang="'+ obj.link.hreflang +'" ';
       }
 
-      if(obj.link.type && obj.link.type !== ''){
+      if(obj.link.type !== ''){
         lnk += 'type="'+ obj.link.type +'" ';
       }
 
-      lnk += 'href="'+ obj.link.href +'" />"';
+      lnk += 'href="'+ obj.link.href +'" />';
 
       entry += lnk;
       lnk = null;
     }
 
     // build category
-    if(obj.category && obj.category.term && obj.category.term !== ''){
+    if(obj.category.term !== ''){
       let cat = '<category ';
 
-      if(obj.category.label && obj.category.label !== ''){
+      if(obj.category.label !== ''){
         cat += 'title="'+ obj.category.label +'" ';
       }
 
-      if(obj.category.scheme && obj.category.scheme !== ''){
+      if(obj.category.scheme !== ''){
         cat += 'scheme="'+ obj.category.scheme +'" ';
       }
 
-      cat += 'term="'+ obj.category.term +'" />"';
+      cat += 'term="'+ obj.category.term +'" />';
 
       entry += cat;
       cat = null;
     }
 
-    if(obj.contributor && obj.contributor.length > 0){
+    if(obj.contributor.length > 0 && obj.contributor[0] !== ''){
       entry += '<contributor>'
       for (let i = 0; i < obj.contributor.length; i++) {
-        entry += '<name>'+ obj.contributor[i] +'</name>'
+        if(obj.contributor[i] !== ''){
+          entry += '<name>'+ obj.contributor[i] +'</name>'
+        }
       }
       entry += '</contributor>'
     }
 
     //build source
-    if(obj.source && obj.source){
+    if(obj.source.id !== '' || obj.source.title !== '' || obj.source.updated !== ''){
       entry += '<source>'
       for (let i in obj.source) {
         if(obj.source[i] !== ''){

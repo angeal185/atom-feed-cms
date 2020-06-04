@@ -9,12 +9,13 @@ const tpl = {
   app_main: function(){
 
     let sb_main = tpl.sb_main(),
-    nav_right = h('div.navbar-section.hide-md',
-      tpl.nav_link('dashboard'),
-      tpl.nav_link('feed'),
-      tpl.nav_link('entries'),
-      tpl.nav_link('settings')
-    )
+    nav_right = h('div.navbar-section.hide-md')
+
+    let arr = ['dashboard', 'feed', 'entry', 'edit', 'settings'];
+
+    for (let i = 0; i < arr.length; i++) {
+      nav_right.append(tpl.nav_link(arr[i]))
+    }
 
     return h('app-main',
       sb_main,
@@ -157,7 +158,7 @@ const tpl = {
   },
   create_inp: function(i,e){
     return h('div.column.col-6.col-md-12',
-      h('div.form-froup',
+      h('div.form-group',
         h('label.form-label', i),
         h('input.form-input', {
           onkeyup: function(evt){
@@ -183,7 +184,7 @@ const tpl = {
       ),
       h('div.card-footer',
         h('div.columns',
-          h('div.column.col-6',
+          h('div.column.col-4',
             h('button.btn.btn-block.sh-95', {
               onclick: function(){
                 fetch('/api/delete', {
@@ -213,13 +214,22 @@ const tpl = {
               }
             }, 'delete')
           ),
-          h('div.column.col-6',
+          h('div.column.col-4',
             h('button.btn.btn-block.sh-95', {
               onclick: function(){
                 ls.set('schema_active', obj);
+                ls.del('schema_entry');
                 utils.toast('success', obj.title + ' active')
               }
             }, 'load')
+          ),
+          h('div.column.col-4',
+            h('button.btn.btn-block.sh-95', {
+              onclick: function(){
+                let title = obj.title.replace(/ /g, '_');
+                window.open('./atom/'+ title + '.xml')
+              }
+            }, 'view')
           )
         )
       )
