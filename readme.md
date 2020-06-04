@@ -66,8 +66,8 @@ https://localhost:8080
 ## note
 * all atom feeds should have unique names and id's.
 * atom feed files are snake_cased from the feed title.
-* all atom entries should have unique id's.
-* all deletes/updates to a feed are final.
+* all atom feed entries should have unique id's.
+* all deletes/updates to a feed/entry are final.
 
 
 If you are unfamiliar with the  Atom Syndication Format the following link will be of use to you:
