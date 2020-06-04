@@ -1,7 +1,7 @@
 import { utils } from './utils.mjs';
 
 const config = {
-  nav_items: ['dashboard','feed', 'entry', 'edit', 'settings'],
+  nav_items: ['dashboard','feed', 'entry', 'edit'],
   nav_base: 0,
   max_entries: 50,
   entry_singles: ['title','summary','published','rights'],

@@ -25,7 +25,7 @@ for example: [https://angeal185.github.io/atom-feed-cms/atom/example_feed.xml](h
 
 for each new feed you add, your url need only replace `example_feed` with the new feed filename
 
-should you wish, you could also serve your feed/s via cdn. be mindfull though, that none of these will provide live updates all of the time.
+should you wish, you could also serve your feed/s via cdn. be mindful though, that none of these will provide live updates all of the time.
 
 example:
 [https://cdn.jsdelivr.net/gh/{{your-username}}/{{your-repo-name}}/atom/{{your-feed-name}}.xml](https://cdn.jsdelivr.net/gh/{{your-username}}/{{your-repo-name}}/atom/{{your-feed-name}}.xml)
@@ -51,8 +51,8 @@ https://localhost:8080
 ```js
 /dashboard // list/load/view/delete atom feeds
 /feed // create or update atom feeds
-/entry // create atom feed erntries
-/edit // update or delete individual atom feed erntries
+/entry // create atom feed entries
+/edit // update or delete individual atom feed entries
 ```
 
 ## files
@@ -68,7 +68,8 @@ https://localhost:8080
 * atom feed files are snake_cased from the feed title.
 * all atom feed entries should have unique id's.
 * all deletes/updates to a feed/entry are final.
+* the default feed entry limit is 50 this can be changed in the app config `max_entries`
 
 
-If you are unfamiliar with the  Atom Syndication Format the following link will be of use to you:
+If you are unfamiliar with the Atom Syndication Format the following link will be of use to you:
 [https://validator.w3.org/feed/docs/rfc4287.html](https://validator.w3.org/feed/docs/rfc4287.html)
