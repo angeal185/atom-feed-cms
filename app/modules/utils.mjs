@@ -11,7 +11,6 @@ const utils = {
     });
   },
   pre: function(doc, win, cb){
-
     utils.fetchJSON('./app/data/fonts.json', function(err,res){
       if(err){return cb(err)}
 
@@ -19,11 +18,6 @@ const utils = {
         utils.add_font(res[i], doc);
       }
       cb(false)
-      /*
-      utils.add_styles(doc, 'main', function(){
-        cb(false)
-      });
-      */
     })
   },
   decode_64: function(base64) {
@@ -47,11 +41,7 @@ const utils = {
       cnsl(['[task:fonts] ', obj.name +' failed to load.'], ['red','cyan']);
     });
   },
-  shuffle: function(arr) {
-    return arr.sort(() => Math.random() - 0.5);
-  },
   fetchJSON: function(url, cb){
-
     fetch(url, {
       method: 'GET',
       headers: {
@@ -61,7 +51,6 @@ const utils = {
     })
     .then(function(res){
       if (res.status >= 200 && res.status < 300) {
-        //let auth = res.headers.get('Digest').slice(9);
         res.json().then(function(data) {
           cb(false,data)
         });
@@ -72,9 +61,6 @@ const utils = {
     .catch(function(err){
       cb(err)
     })
-  },
-  fix_date: function(i){
-    return i.replace('T', ' ').split('.')[0];
   },
   emptySync: function(i){
     while (i.firstChild) {
@@ -95,7 +81,7 @@ const utils = {
     });
   },
   toast: function(i, msg){
-    const toast = h('div#toast.alert.alert-'+ i, {
+    const toast = h('app-toast.alert.alert-'+ i, {
         role: "alert"
     }, msg);
     document.body.append(toast);
@@ -106,32 +92,6 @@ const utils = {
       },1000)
     },3000)
     return;
-  },
-  date2ts: function(x){
-    return Date.parse(x);
-  },
-  format_date: function(i){
-    let date = new Date(i),
-    dd = date.getDate(),
-    mm = date.getMonth()+1,
-    yyyy = date.getFullYear();
-
-    if(dd < 10){
-      dd = '0' + dd
-    }
-
-    if(mm < 10){
-      mm = '0' + mm
-    };
-
-    return [yyyy, mm, dd].join('-')
-  },
-  get_time: function(){
-    return new Date().toTimeString().split(' ')[0];
-  },
-  get_year: function(){
-    let d = new Date();
-    return d.getFullYear();
   },
   debounce: function(func, wait, immediate) {
   	var timeout;
@@ -154,31 +114,6 @@ const utils = {
    } catch (err) {
      if(err){return str;}
    }
-  },
-  formatBytes: function(bytes, decimals) {
-    if (bytes === 0){
-      return '0 Bytes';
-    }
-    const k = 1024,
-    dm = decimals < 0 ? 0 : decimals,
-    sizes = ['Bytes', 'KB', 'MB', 'GB'],
-    i = Math.floor(Math.log(bytes) / Math.log(k));
-
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-  },
-  snake_case: function(str){
-    try {
-      return str.replace(/ /g, '_');
-    } catch (err) {
-      if(err){return str;}
-    }
-  },
-  un_snake_case: function(str){
-    try {
-      return str.replace(/_/g, ' ');
-    } catch (err) {
-      if(err){return str;}
-    }
   },
   atom_base(obj){
 

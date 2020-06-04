@@ -136,13 +136,6 @@ const tpl = {
     }
 
   },
-  input_txt: function(){
-    return h('input.form-input.mb-2', {
-      type: 'text',
-      placeholder: 'contact',
-      readOnly: true
-    })
-  },
   create_inp: function(i,e){
     return h('div.column.col-6.col-md-12',
       h('div.form-group',
